@@ -112,8 +112,7 @@ module Poseidon
       partition_response = topic_response.partition_fetch_responses.first
 
       unless partition_response.error == Errors::NO_ERROR_CODE
-        if @offset < 0 &&
-          Errors::ERROR_CODES[partition_response.error] == Errors::OffsetOutOfRange
+        if Errors::ERROR_CODES[partition_response.error] == Errors::OffsetOutOfRange
           @offset = :earliest_offset
           return fetch(options)
         end
